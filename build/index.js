@@ -189,19 +189,35 @@ var auth = async (req, res, next) => {
 };
 
 // src/middleware/limiter.ts
-var import_express_rate_limit = require("express-rate-limit");
-var MAX_REQUEST_PER_HOUR = process.env.MAX_REQUEST_PER_HOUR;
-var maxCount = isNotEmptyString(MAX_REQUEST_PER_HOUR) && !isNaN(Number(MAX_REQUEST_PER_HOUR)) ? parseInt(MAX_REQUEST_PER_HOUR) : 0;
-var limiter = (0, import_express_rate_limit.rateLimit)({
-  windowMs: 60 * 60 * 1e3,
+//var import_express_rate_limit = require("express-rate-limit");
+//var MAX_REQUEST_PER_HOUR = process.env.MAX_REQUEST_PER_HOUR;
+//var maxCount = isNotEmptyString(MAX_REQUEST_PER_HOUR) && !isNaN(Number(MAX_REQUEST_PER_HOUR)) ? parseInt(MAX_REQUEST_PER_HOUR) : 0;
+//var limiter = (0, import_express_rate_limit.rateLimit)({
+//  windowMs: 60 * 60 * 1e3,
   // Maximum number of accesses within an hour
+//  max: maxCount,
+//  statusCode: 200,
+  // 200 means success，but the message is 'Too many request from this IP in 1 hour'
+//  message: async (req, res) => {
+//    res.send({ status: "Fail", message: "Too many request from this IP in 1 hour", data: null });
+//  }
+//});
+
+// src/middleware/limiter.ts
+var import_express_rate_limit = require("express-rate-limit");
+var MAX_REQUEST_PER_15_MINUTES = process.env.MAX_REQUEST_PER_15_MINUTES;
+var maxCount = isNotEmptyString(MAX_REQUEST_PER_15_MINUTES) && !isNaN(Number(MAX_REQUEST_PER_15_MINUTES)) ? parseInt(MAX_REQUEST_PER_15_MINUTES) : 25;
+var limiter = (0, import_express_rate_limit.rateLimit)({
+  windowMs: 15 * 60 * 1e3,
+  // Maximum number of accesses within 15 minutes
   max: maxCount,
   statusCode: 200,
-  // 200 means success，but the message is 'Too many request from this IP in 1 hour'
+  // 200 means success，but the message is 'Too many requests from this IP in 15 minutes'
   message: async (req, res) => {
-    res.send({ status: "Fail", message: "Too many request from this IP in 1 hour", data: null });
+    res.send({ status: "Fail", message: "Too many requests from this IP in 15 minutes", data: null });
   }
 });
+
 
 // src/index.ts
 var app = (0, import_express.default)();
