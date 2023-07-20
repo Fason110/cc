@@ -206,7 +206,7 @@ var auth = async (req, res, next) => {
 // src/middleware/limiter.ts
 var import_express_rate_limit = require("express-rate-limit");
 var MAX_REQUEST_PER_15_MINUTES = process.env.MAX_REQUEST_PER_15_MINUTES;
-var maxCount = isNotEmptyString(MAX_REQUEST_PER_15_MINUTES) && !isNaN(Number(MAX_REQUEST_PER_15_MINUTES)) ? parseInt(MAX_REQUEST_PER_15_MINUTES) : 25;
+var maxCount = 10;//isNotEmptyString(MAX_REQUEST_PER_15_MINUTES) && !isNaN(Number(MAX_REQUEST_PER_15_MINUTES)) ? parseInt(MAX_REQUEST_PER_15_MINUTES) : 25;
 var limiter = (0, import_express_rate_limit.rateLimit)({
   windowMs: 15 * 60 * 1e3,
   // Maximum number of accesses within 15 minutes
