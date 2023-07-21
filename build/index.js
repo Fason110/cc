@@ -264,10 +264,23 @@ var limiter = (0, import_express_rate_limit.rateLimit)({
 
 
 // src/index.ts
-var app = (0, import_express.default)();
-var router = import_express.default.Router();
-app.use(import_express.default.static("public"));
-app.use(import_express.default.json());
+//var app = (0, import_express.default)();
+//var router = import_express.default.Router();
+//app.use(import_express.default.static("public"));
+//app.use(import_express.default.json());
+//app.use((0, import_compression.default)());
+//app.use((0, import_helmet.default)());
+//app.all("*", (_, res, next) => {
+//  res.header("Access-Control-Allow-Origin", "*");
+//  res.header("Access-Control-Allow-Headers", "authorization, Content-Type");
+//  res.header("Access-Control-Allow-Methods", "*");
+//  next();
+//});
+
+var app = express();
+var router = express.Router();
+app.use(express.static("public"));
+app.use(express.json());
 app.use((0, import_compression.default)());
 app.use((0, import_helmet.default)());
 app.all("*", (_, res, next) => {
@@ -276,6 +289,8 @@ app.all("*", (_, res, next) => {
   res.header("Access-Control-Allow-Methods", "*");
   next();
 });
+
+
 router.get("/", async (req, res) => {
   res.type("html");
   res.render("index.html");
