@@ -274,6 +274,9 @@ var limiter = (0, import_express_rate_limit.rateLimit)({
 //});
 
 var app = express();
+app.set('trust proxy', true);
+// ... add middleware and routes here
+//var app = express();
 var router = express.Router();
 app.use(express.static("public"));
 app.use(express.json());
