@@ -32,7 +32,10 @@ var router = import_express.default.Router();
 var allowed_ips = ['183.63.121.10', '172.247.129.124', '192.168.1.3'];
 
 app.use(function(req, res, next) {
-    var user_ip = req.connection.remoteAddress;
+    var user_ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
+    // 打印出每个请求的IP地址
+    console.log('Request IP:', user_ip);
 
     if(allowed_ips.indexOf(user_ip) !== -1){
        next();
