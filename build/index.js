@@ -29,7 +29,7 @@ var express = require("express");
 var import_compression = __toESM(require("compression"));
 var import_helmet = __toESM(require("helmet"));
 var app = express();
-app.set('trust proxy', true);
+//app.set('trust proxy', true);
 // ... add middleware and routes here
 
 var router = express.Router();
@@ -274,7 +274,7 @@ var limiter = (0, import_express_rate_limit.rateLimit)({
 //});
 
 var app = express();
-app.set('trust proxy', true);
+//app.set('trust proxy', true);
 // ... add middleware and routes here
 //var app = express();
 var router = express.Router();
