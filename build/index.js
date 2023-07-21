@@ -223,11 +223,11 @@ var limiter = (0, import_express_rate_limit.rateLimit)({
 var app = (0, import_express.default)();
 var router = import_express.default.Router();
 // 允许访问的IP地址列表
-var allowed_ips = ['183.63.121.10', '172.247.129.124', '192.168.1.3'];
+var allowed_ips = ['183.63.121.10', '172.247.129.124', '172.247.129.124'];
 
 app.use(function(req, res, next) {
-    //var user_ip = (req.headers['x-forwarded-for'] || '').split(',')[0] || req.connection.remoteAddress;
-    var user_ip =  req.connection.remoteAddress;
+    var user_ip = (req.headers['x-forwarded-for'] || '').split(',')[0] || req.connection.remoteAddress;
+    //var user_ip =  req.connection.remoteAddress;
     console.log('Request IP:', user_ip);
 
     if(allowed_ips.indexOf(user_ip) !== -1){
