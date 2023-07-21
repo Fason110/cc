@@ -55,8 +55,8 @@ app.use(function(req, res, next) {
     }
 });
 
-app.use(import_express.default.static("public"));
-app.use(import_express.default.json());
+app.use(express.static("public"));
+app.use(express.json());
 app.use((0, import_compression.default)());
 app.use((0, import_helmet.default)());
 app.all("*", (_, res, next) => {
@@ -64,6 +64,7 @@ app.all("*", (_, res, next) => {
   res.header("Access-Control-Allow-Headers", "authorization, Content-Type");
   res.header("Access-Control-Allow-Methods", "*");
   next();
+
 });
 
 
