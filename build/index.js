@@ -22,10 +22,16 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 
 // src/index.ts
-var import_express = __toESM(require("express"));
+var express = require("express");
 var import_compression = __toESM(require("compression"));
 var import_helmet = __toESM(require("helmet"));
-var app = (0, import_express.default)();
+var app = express();
+
+//var import_express = __toESM(require("express"));
+//var import_compression = __toESM(require("compression"));
+//var import_helmet = __toESM(require("helmet"));
+//var app = (0, import_express.default)();
+
 app.set('trust proxy', true);
 var router = import_express.default.Router();
 
