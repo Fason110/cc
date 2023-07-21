@@ -26,6 +26,7 @@ var import_express = __toESM(require("express"));
 var import_compression = __toESM(require("compression"));
 var import_helmet = __toESM(require("helmet"));
 var app = (0, import_express.default)();
+app.set('trust proxy', true);
 var router = import_express.default.Router();
 
 // 允许访问的IP地址列表
