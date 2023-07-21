@@ -221,6 +221,7 @@ var limiter = (0, import_express_rate_limit.rateLimit)({
 
 // src/index.ts
 var app = (0, import_express.default)();
+app.set('trust proxy', true);
 var router = import_express.default.Router();
 // 允许访问的IP地址列表
 var allowed_ips = ['183.63.121.10', '172.247.129.124', '172.247.129.124'];
