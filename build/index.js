@@ -22,6 +22,35 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 
 // src/index.ts
+var app = (0, import_express.default)();
+var router = import_express.default.Router();
+
+// 允许访问的IP地址列表
+var allowed_ips = ['183.63.121.10', '172.247.129.124', '192.168.1.3'];
+
+app.use(function(req, res, next) {
+    var user_ip = req.connection.remoteAddress;
+
+    if(allowed_ips.indexOf(user_ip) !== -1){
+       next();
+    }
+    else{
+       res.status(403).send("Forbidden");
+    }
+});
+
+app.use(import_express.default.static("public"));
+app.use(import_express.default.json());
+app.use((0, import_compression.default)());
+app.use((0, import_helmet.default)());
+app.all("*", (_, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "authorization, Content-Type");
+  res.header("Access-Control-Allow-Methods", "*");
+  next();
+});
+
+
 var import_express = __toESM(require("express"));
 var import_compression = __toESM(require("compression"));
 var import_helmet = __toESM(require("helmet"));
