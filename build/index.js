@@ -21,50 +21,10 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-
-
-
 // src/index.ts
-var express = require("express");
+var import_express = __toESM(require("express"));
 var import_compression = __toESM(require("compression"));
 var import_helmet = __toESM(require("helmet"));
-var app = express();
-//app.set('trust proxy', true);
-// ... add middleware and routes here
-
-var router = express.Router();
-
-// 允许访问的IP地址列表
-var allowed_ips = ['183.63.121.10', '172.247.129.124', '192.168.1.3'];
-
-app.use(function(req, res, next) {
-    //var user_ip = (req.headers['x-forwarded-for'] || '').split(',')[0] || req.connection.remoteAddress;
-    var user_ip =  req.connection.remoteAddress;
-    console.log('Request IP:', user_ip);
-
-    if(allowed_ips.indexOf(user_ip) !== -1){
-       next();
-    }
-    else{
-       res.status(403).send("Forbidden");
-    }
-});
-
-
-app.use(express.static("public"));
-app.use(express.json());
-app.use((0, import_compression.default)());
-app.use((0, import_helmet.default)());
-app.all("*", (_, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "authorization, Content-Type");
-  res.header("Access-Control-Allow-Methods", "*");
-  next();
-
-});
-
-
-
 
 // src/chatgpt/index.ts
 var dotenv = __toESM(require("dotenv"));
@@ -260,26 +220,26 @@ var limiter = (0, import_express_rate_limit.rateLimit)({
 
 
 // src/index.ts
-//var app = (0, import_express.default)();
-//var router = import_express.default.Router();
-//app.use(import_express.default.static("public"));
-//app.use(import_express.default.json());
-//app.use((0, import_compression.default)());
-//app.use((0, import_helmet.default)());
-//app.all("*", (_, res, next) => {
-//  res.header("Access-Control-Allow-Origin", "*");
-//  res.header("Access-Control-Allow-Headers", "authorization, Content-Type");
-//  res.header("Access-Control-Allow-Methods", "*");
-//  next();
-//});
+var app = (0, import_express.default)();
+var router = import_express.default.Router();
+// 允许访问的IP地址列表
+var allowed_ips = ['183.63.121.10', '172.247.129.124', '192.168.1.3'];
 
-var app = express();
-//app.set('trust proxy', true);
-// ... add middleware and routes here
-//var app = express();
-var router = express.Router();
-app.use(express.static("public"));
-app.use(express.json());
+app.use(function(req, res, next) {
+    //var user_ip = (req.headers['x-forwarded-for'] || '').split(',')[0] || req.connection.remoteAddress;
+    var user_ip =  req.connection.remoteAddress;
+    console.log('Request IP:', user_ip);
+
+    if(allowed_ips.indexOf(user_ip) !== -1){
+       next();
+    }
+    else{
+       res.status(403).send("Forbidden");
+    }
+});
+
+app.use(import_express.default.static("public"));
+app.use(import_express.default.json());
 app.use((0, import_compression.default)());
 app.use((0, import_helmet.default)());
 app.all("*", (_, res, next) => {
@@ -288,8 +248,6 @@ app.all("*", (_, res, next) => {
   res.header("Access-Control-Allow-Methods", "*");
   next();
 });
-
-
 router.get("/", async (req, res) => {
   res.type("html");
   res.render("index.html");
@@ -342,3 +300,4 @@ router.post("/verify", async (req, res) => {
 app.use("", router);
 app.use("/api", router);
 app.listen(6660, () => globalThis.console.log("Server is running on port 6660"));
+
