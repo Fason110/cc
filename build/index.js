@@ -33,7 +33,8 @@ var app = express();
 //var app = (0, import_express.default)();
 
 app.set('trust proxy', true);
-var router = import_express.default.Router();
+//var router = import_express.default.Router();
+var router = express.Router();
 
 // 允许访问的IP地址列表
 var allowed_ips = ['183.63.121.10', '172.247.129.124', '192.168.1.3'];
