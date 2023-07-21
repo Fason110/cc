@@ -21,30 +21,25 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
+
+
+
 // src/index.ts
 var express = require("express");
 var import_compression = __toESM(require("compression"));
 var import_helmet = __toESM(require("helmet"));
 var app = express();
-
-//var import_express = __toESM(require("express"));
-//var import_compression = __toESM(require("compression"));
-//var import_helmet = __toESM(require("helmet"));
-//var app = (0, import_express.default)();
-
 app.set('trust proxy', true);
-//var router = import_express.default.Router();
+// ... add middleware and routes here
+
 var router = express.Router();
 
 // 允许访问的IP地址列表
 var allowed_ips = ['183.63.121.10', '172.247.129.124', '192.168.1.3'];
 
 app.use(function(req, res, next) {
-    var user_ip = req.connection.remoteAddress;
-//app.use(function(req, res, next) {
-//    var user_ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    var user_ip = (req.headers['x-forwarded-for'] || '').split(',')[0] || req.connection.remoteAddress;
 
-    // 打印出每个请求的IP地址
     console.log('Request IP:', user_ip);
 
     if(allowed_ips.indexOf(user_ip) !== -1){
@@ -54,6 +49,7 @@ app.use(function(req, res, next) {
        res.status(403).send("Forbidden");
     }
 });
+
 
 app.use(express.static("public"));
 app.use(express.json());
