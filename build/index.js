@@ -235,7 +235,8 @@ app.use(function(req, res, next) {
        next();
     }
     else{
-       next();//res.status(403).send("Forbidden");
+       //next();//res.status(403).send("Forbidden");
+       res.status(403).send("Forbidden");
     }
 });
 
