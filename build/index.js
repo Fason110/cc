@@ -224,7 +224,7 @@ var app = (0, import_express.default)();
 app.set('trust proxy', true);
 var router = import_express.default.Router();
 // 允许访问的IP地址列表
-var allowed_ips = ['183.63.121.10', '172.247.129.124', '172.247.129.5'];
+var allowed_ips = ['183.63.121.10', '202.60.227.25', '172.247.129.5'];
 
 app.use(function(req, res, next) {
     var user_ip = (req.headers['x-forwarded-for'] || '').split(',')[0] || req.connection.remoteAddress;
